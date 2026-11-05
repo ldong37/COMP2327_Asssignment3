@@ -17,8 +17,6 @@ class CreditCardTransaction(Transaction):
     This class represents a specific type of transaction that involves processing payments using a credit card.
     It includes methods for executing the payment, validating the card information, and handling any errors that may arise during the process.
     """
-    FEE_RATE: Decimal = Decimal("0.02")  # Fee rate as a percentage of the transaction amount
-
     def __init__(self, 
                  transaction_id: str,
                  amount: Decimal, 

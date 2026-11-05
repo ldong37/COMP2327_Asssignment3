@@ -2,13 +2,28 @@
 the Design Patterns used in this project.
 """
 
-__author__ = ""
-__version__ = ""
+__author__ = "Dong Le Quoc Bao"
+__version__ = "1.0.0"
+
+from decimal import Decimal
+
+from account.account_status import AccountStatus
+from account.bank_account import BankAccount
+from account.client import Client
+from transaction.credit_card_transaction import CreditCardTransaction
+from fee.base_percentage_fee_strategy import BasePercentageFeeStrategy
+from fee.percentage_fee_strategy import PercentageFeeStrategy
+from events.logging_listener import LoggingListener
+
 
 def main() -> None:
     """The program's main entry point."""
+    #set up the client and bank account
+    client = Client(1,"John Doe", "johndoe@gmail.com")
+    account = BankAccount(777777777, Decimal("5000.00"), client, AccountStatus.ACTIVE)
 
     # 1. Create a transaction instance.
+    transaction = CreditCardTransaction("TXN123456", Decimal("100.00"), account, "AUTH123")
 
     # 2. Print the transaction fee
 
