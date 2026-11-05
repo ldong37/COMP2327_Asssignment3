@@ -53,16 +53,6 @@ class CreditCardTransaction(Transaction):
         return self._authorization_code
 
     @property
-    def fees(self) -> Decimal:
-        """
-        Calculate the fees associated with the credit card transaction.
-
-        Returns:
-            Decimal: The calculated fees based on the transaction amount and fee rate.
-        """
-        fee = self._amount * self.FEE_RATE
-        return fee.quantize(Decimal("0.01"))
-
     def process(self) -> None:
         """
         Process the credit card transaction by deducting the amount and fees from the associated bank account.
@@ -84,6 +74,7 @@ class CreditCardTransaction(Transaction):
             self._account.withdraw(self._amount)
             self._account.withdraw(self.fees)
             self._status = TransactionStatus.PROCESSED
+            self._processed_event.notify(self)
 
 
     def __str__(self) -> str:
