@@ -12,6 +12,8 @@ from decimal import Decimal, ROUND_HALF_UP
 
 from account.bank_account import BankAccount
 from .transaction_status import TransactionStatus
+from fee.fee_strategy import FeeStrategy
+from events.event import Event
 
 class Transaction(ABC):
     """
@@ -47,7 +49,8 @@ class Transaction(ABC):
         self._amount: Decimal = amount
         self._status: TransactionStatus = TransactionStatus.PENDING
         self._account: BankAccount = account
-
+        self._fee_strategy: FeeStrategy = None
+        self._processed_event: Event = Event()
     @property 
     def transaction_id(self) -> str:
        """
@@ -103,13 +106,36 @@ class Transaction(ABC):
     @abstractmethod
     def fees(self) -> Decimal:
        """
-       Abstract property to get the fees associated with the transaction.
-       Subclasses must implement this property to calculate and return the fees.
-
+       Get the fees associated with the transaction.
+       The fee is determined by the currently assigned fee strategy.
+       If no fee strategy is assigned, the fee defaults to zero.
+       
        Returns:
-        Decimal: The fees associated with the transaction.
+          Decimal: The calculated transaction fee.
        """
-       raise NotImplementedError
+       if self._fee_strategy is None:
+           return Decimal("0.00")
+       return self._fee_strategy.get_fee(self._amount)
+   
+   
+    def set_fee_strategy(self, fee_strategy: FeeStrategy) -> None:
+        """
+        Assign the fee strategy used to calculate this transaction's fee.
+        
+        Args:
+            fee_strategy (FeeStrategy): The fee strategy to apply.
+        """
+        self._fee_strategy = fee_strategy
+        
+    @property
+    def on_processed(self) -> Event:
+        """
+        Get the event raised when this transaction is successfully processed.
+
+        Returns:
+            Event: The event that is triggered when the transaction is processed.
+        """
+        return self._processed_event
 
 
     @abstractmethod
@@ -150,5 +176,5 @@ class Transaction(ABC):
         return (f"ID: {self.transaction_id}"
                 f"Amount: {self._format_currency(self.amount)}" 
                 f"Status: {self.status.name}" 
-                f"Account: {self.account.account_number}"
+                f"Account: {self.account.account_id}"
         )
