@@ -39,9 +39,6 @@ class BankTransferTransaction(Transaction):
             ValueError: If the source or target account is None.
         """
         super().__init__(transaction_id, amount, account)
-        if self.amount <= Decimal ("0"):
-            raise ValueError("amount must be a positive number")
-        
         self._target_account: BankAccount = target_account
 
     @property
@@ -55,17 +52,6 @@ class BankTransferTransaction(Transaction):
         return self._target_account
 
     @property
-    def fees(self) -> Decimal:
-        """
-        Calculate the transaction fee based on the amount and fee rate.
-
-        Returns:
-            Decimal: The calculated transaction fee.
-        """
-        percentage_fee = self.amount * self.FEE_RATE
-        fee = max(self.BASE_FEE, percentage_fee)
-        return fee.quantize(Decimal("0.01"))  # Round to 2 decimal places
-
     def process(self) -> None:
         """
         Process the bank transfer transaction.
