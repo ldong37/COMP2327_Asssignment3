@@ -89,6 +89,7 @@ class BankTransferTransaction(Transaction):
             self._account.withdraw(self.fees)
             self._target_account.deposit(self._amount)
             self._status = TransactionStatus.PROCESSED
+            self._processed_event.notify(self)
 
 
     def __str__(self) -> str:
