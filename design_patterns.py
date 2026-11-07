@@ -23,7 +23,7 @@ def main() -> None:
     account = BankAccount(777777777, Decimal("5000.00"), client, AccountStatus.ACTIVE)
 
     # 1. Create a transaction instance.
-    transaction = CreditCardTransaction("TN123456", Decimal("100.00"), account, "AUTH123")
+    transaction = CreditCardTransaction("TXN-001", Decimal("1000.00"), account, "AUTH-12345")
 
     # 2. Print the transaction fee
     print (f"Fee (no startegy ): {transaction.fees}")

@@ -51,6 +51,7 @@ class Transaction(ABC):
         self._account: BankAccount = account
         self._fee_strategy: FeeStrategy = None
         self._processed_event: Event = Event()
+        
     @property 
     def transaction_id(self) -> str:
        """
@@ -103,7 +104,6 @@ class Transaction(ABC):
        return self._account
 
     @property
-    @abstractmethod
     def fees(self) -> Decimal:
        """
        Get the fees associated with the transaction.
