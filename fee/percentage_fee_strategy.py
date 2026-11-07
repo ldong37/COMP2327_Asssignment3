@@ -4,7 +4,7 @@ Fee strategy where the fee is a percentage of the transaction amount.
 __author__ = "Dong Le Quoc Bao"
 __version__ = "1.0.0"
 
-from decimal import Decimal
+from decimal import Decimal, ROUND_HALF_UP
 from fee.fee_strategy import FeeStrategy
 
 class PercentageFeeStrategy(FeeStrategy):

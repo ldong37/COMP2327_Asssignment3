@@ -50,7 +50,6 @@ class CreditCardTransaction(Transaction):
         """
         return self._authorization_code
 
-    @property
     def process(self) -> None:
         """
         Process the credit card transaction by deducting the amount and fees from the associated bank account.

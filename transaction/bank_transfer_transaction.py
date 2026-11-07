@@ -16,9 +16,6 @@ class BankTransferTransaction(Transaction):
     This class represents a specific type of transaction that involves transferring funds from one bank account to another.
     It includes methods for executing the transfer, validating the transaction details, and handling any errors that may arise during the process.
     """
-    BASE_FEE: Decimal = Decimal("1.00")  # Base fee for the transaction
-    FEE_RATE: Decimal = Decimal("0.007")  # Fee rate as a percentage of the transaction amount
-
     def __init__(self, 
                  transaction_id: str,
                  amount: Decimal, 
@@ -51,7 +48,6 @@ class BankTransferTransaction(Transaction):
         """
         return self._target_account
 
-    @property
     def process(self) -> None:
         """
         Process the bank transfer transaction.
@@ -71,11 +67,11 @@ class BankTransferTransaction(Transaction):
             return
 
         if self.status == TransactionStatus.PENDING:
-            self._account.withdraw(self._amount)
-            self._account.withdraw(self.fees)
-            self._target_account.deposit(self._amount)
-            self._status = TransactionStatus.PROCESSED
-            self._processed_event.notify(self)
+           self._account.withdraw(self._amount)
+           self._account.withdraw(self.fees)
+           self._target_account.deposit(self._amount)
+           self._status = TransactionStatus.PROCESSED
+           self._processed_event.notify(self)
 
 
     def __str__(self) -> str:

@@ -5,7 +5,7 @@ Fee strategy where the fee is the higher of a base fee and a percentage.
 __author__ = "Dong Le Quoc Bao"
 __version__ = "1.0.0"
 
-from decimal import Decimal
+from decimal import Decimal, ROUND_HALF_UP
 from fee.percentage_fee_strategy import PercentageFeeStrategy
 
 class BasePercentageFeeStrategy(PercentageFeeStrategy):
