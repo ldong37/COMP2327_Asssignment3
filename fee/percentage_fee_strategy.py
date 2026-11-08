@@ -18,7 +18,7 @@ class PercentageFeeStrategy(FeeStrategy):
             percentage (Decimal): The fee percentage (between 0 and 1 exclusive).
         """
         if not (Decimal("0") <= percentage <= Decimal("1")):
-            raise ValueError("Percentage must be between 0 and 1 (inclusive).")
+            raise ValueError("Percentage must be a value between 0 and 1 (inclusive).")
         
         self._percentage: Decimal = percentage
 

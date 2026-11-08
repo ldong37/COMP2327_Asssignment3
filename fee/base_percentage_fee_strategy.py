@@ -20,7 +20,7 @@ class BasePercentageFeeStrategy(PercentageFeeStrategy):
             percentage (Decimal): The fee percentage (between 0 and 1 inclusive).
         """
         if base_fee < Decimal("0"):
-            raise ValueError("Base fee must be greater than or equal to 0")
+            raise ValueError("Base fee must be greater than or equal to zero.")
         super().__init__(percentage)
         self._base_fee: Decimal = base_fee
 

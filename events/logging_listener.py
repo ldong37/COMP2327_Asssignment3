@@ -22,7 +22,7 @@ class LoggingListener(EventListener):
         """
         
         if not isinstance(sender, Transaction):
-            raise TypeError("Sender must be a Transaction type.")
+            raise TypeError("sender must be a Transaction type.")
         
         print("TRANSACTION PROCESSED:")
         print(f"ID: {sender.transaction_id}")
