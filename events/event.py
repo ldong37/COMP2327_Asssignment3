@@ -19,6 +19,11 @@ class Event:
         if listener in self._listeners:
             self._listeners.remove(listener)
             
+    def remove_listener(self, listener: EventListener) -> None:
+        """Remove the specified listener from the list of listeners"""
+        if listener in self._listeners:
+            self._listeners.remove(listener)
+            
     def notify(self, sender) -> None:
         """
         Notify all registered listeners of the event.

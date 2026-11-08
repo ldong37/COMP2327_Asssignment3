@@ -38,4 +38,4 @@ class PercentageFeeStrategy(FeeStrategy):
             Decimal: The fee, rounded to two decimal places.
         """
         fee = transaction_amount * self._percentage
-        return transaction_amount * self._percentage
+        return fee .quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
