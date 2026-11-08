@@ -68,7 +68,9 @@ class BankTransferTransaction(Transaction):
 
         if self.status == TransactionStatus.PENDING:
            self._account.withdraw(self._amount)
-           self._account.withdraw(self.fees)
+           fee = self.fees
+           if fee > 0:
+               self._account.withdraw(fee)
            self._target_account.deposit(self._amount)
            self._status = TransactionStatus.PROCESSED
            self._processed_event.notify(self)
