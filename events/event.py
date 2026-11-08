@@ -15,10 +15,10 @@ class Event:
         self._listeners: list[EventListener] = []
         
     def add_listener(self, listener: EventListener) -> None:
-        """Add the specified listner to the list of listeners"""
-        if listener in self._listeners:
-            self._listeners.remove(listener)
-            
+        """Add the specified listener to the list of listeners"""
+        if listener not in self._listeners:
+            self._listeners.append(listener)
+
     def remove_listener(self, listener: EventListener) -> None:
         """Remove the specified listener from the list of listeners"""
         if listener in self._listeners:
