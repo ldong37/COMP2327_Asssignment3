@@ -59,7 +59,7 @@ class Assignment3Tests(unittest.TestCase):
     def test_percentage_fee_rejects_out_of_range_percentage(self) -> None:
         with self.assertRaisesRegex(
             ValueError,
-            "percentage must be a value between 0 and 1 (inclusive)$",
+            "^Percentage must be a value between 0 and 1 \\(inclusive\\)\\.$",
         ):
             PercentageFeeStrategy(Decimal("1.01"))
 
@@ -80,7 +80,7 @@ class Assignment3Tests(unittest.TestCase):
     def test_base_fee_rejects_negative_base_fee(self) -> None:
         with self.assertRaisesRegex(
             ValueError,
-            "base_fee must be greater than or equal to zero$",
+            "^Base fee must be greater than or equal to zero\\.$",
         ):
             BasePercentageFeeStrategy(Decimal("-0.01"), Decimal("0.01"))
 
@@ -127,7 +127,7 @@ class Assignment3Tests(unittest.TestCase):
 
     def test_logging_listener_rejects_non_transaction_sender(self) -> None:
         with self.assertRaisesRegex(
-            TypeError, "sender must be a Transaction type$"
+            TypeError, "sender must be a Transaction type\\.$"
         ):
             LoggingListener().update(object())
 
